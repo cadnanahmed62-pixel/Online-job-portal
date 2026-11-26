@@ -1,0 +1,630 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Jobs | Online Job Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b1425;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #07172f;
+            padding: 28px 15px;
+            overflow-y: auto;
+            z-index: 1000;
+            border-right: 1px solid #1e293b;
+        }
+
+        .logo {
+            color: white;
+            font-size: 23px;
+            font-weight: bold;
+            padding: 10px 12px 40px;
+        }
+
+        .menu-title {
+            color: #94a3b8;
+            font-size: 11px;
+            padding: 0 15px;
+            margin-bottom: 15px;
+            letter-spacing: 1.5px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            margin: 6px 0;
+            border-radius: 9px;
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #12336b;
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .menu-icon {
+            font-size: 19px;
+            width: 22px;
+            text-align: center;
+        }
+
+        /* MAIN CONTENT */
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .topbar {
+            background: #111f35;
+            padding: 18px 25px;
+            border: 1px solid #26364e;
+            border-radius: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            gap: 15px;
+        }
+
+        .topbar h2 {
+            color: #f1f5f9;
+            font-size: 20px;
+        }
+
+        .user-info {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .logout {
+            background: #dc2626;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 7px;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        .logout:hover {
+            background: #991b1b;
+        }
+
+        /* HERO */
+
+        .hero {
+            background: linear-gradient(120deg, #07172f, #173d78);
+            text-align: center;
+            padding: 45px 20px;
+            border-radius: 13px;
+            margin-bottom: 30px;
+            border: 1px solid #294b7c;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            color: #f8fafc;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 span {
+            color: #60a5fa;
+        }
+
+        .hero p {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* SEARCH */
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .search-box {
+            background: #111f35;
+            padding: 25px;
+            border: 1px solid #26364e;
+            border-radius: 12px;
+            margin-bottom: 32px;
+        }
+
+        .search-box h3 {
+            margin-bottom: 18px;
+            color: #f1f5f9;
+            font-size: 19px;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr) auto auto;
+            gap: 12px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            background: #0b1425;
+            border: 1px solid #334155;
+            border-radius: 7px;
+            color: white;
+            outline: none;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #3b82f6;
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        button, .btn {
+            padding: 12px 17px;
+            border: none;
+            border-radius: 7px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            display: inline-block;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .search-btn {
+            background: #2563eb;
+        }
+
+        .search-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .clear-btn {
+            background: #475569;
+        }
+
+        .clear-btn:hover {
+            background: #334155;
+        }
+
+        /* JOB CARDS */
+
+        .section-title {
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            color: #f1f5f9;
+            font-size: 22px;
+        }
+
+        .job-card {
+            background: #111f35;
+            border: 1px solid #26364e;
+            padding: 25px;
+            margin-bottom: 18px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .job-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .job-card h2 {
+            color: #60a5fa;
+            font-size: 21px;
+            margin-bottom: 17px;
+        }
+
+        .job-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 25px;
+            margin-bottom: 17px;
+        }
+
+        .job-info span {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .job-card p {
+            color: #94a3b8;
+            line-height: 1.8;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .details-btn {
+            background: #2563eb;
+            margin-right: 7px;
+        }
+
+        .details-btn:hover {
+            background: #1e40af;
+        }
+
+        .apply-btn {
+            background: #15803d;
+            margin-right: 7px;
+        }
+
+        .apply-btn:hover {
+            background: #166534;
+        }
+
+        .edit-btn {
+            background: #b45309;
+            margin-right: 7px;
+        }
+
+        .edit-btn:hover {
+            background: #92400e;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+        }
+
+        .delete-btn:hover {
+            background: #991b1b;
+        }
+
+        /* EMPTY MESSAGE */
+
+        .empty {
+            background: #111f35;
+            border: 1px solid #26364e;
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            color: #cbd5e1;
+        }
+
+        .empty h3 {
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            color: #94a3b8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 35px;
+            border-top: 1px solid #26364e;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .search-form {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 75px;
+                padding: 20px 7px;
+            }
+
+            .logo {
+                font-size: 10px;
+                padding: 10px 2px 25px;
+                text-align: center;
+            }
+
+            .menu-title,
+            .menu-label {
+                display: none;
+            }
+
+            .menu a {
+                justify-content: center;
+                padding: 15px 5px;
+            }
+
+            .main {
+                margin-left: 75px;
+                padding: 15px;
+            }
+
+            .topbar {
+                padding: 15px;
+                flex-wrap: wrap;
+            }
+
+            .topbar h2 {
+                font-size: 16px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 25px;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .job-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .job-card {
+                padding: 20px;
+            }
+
+            .job-card .btn {
+                margin-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">💼 Job Portal</div>
+
+        <div class="menu-title">MAIN MENU</div>
+
+        <nav class="menu">
+
+            <a href="{% url 'home' %}">
+                <span class="menu-icon">⌂</span>
+                <span class="menu-label">Overview</span>
+            </a>
+
+            <a href="{% url 'job_list' %}" class="active">
+                <span class="menu-icon">▣</span>
+                <span class="menu-label">Jobs</span>
+            </a>
+
+            {% if request.user.role == 'EMPLOYER' %}
+
+                <a href="{% url 'employer_applications' %}">
+                    <span class="menu-icon">♧</span>
+                    <span class="menu-label">Applicants</span>
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'my_applications' %}">
+                    <span class="menu-icon">♧</span>
+                    <span class="menu-label">My Applications</span>
+                </a>
+
+                <a href="{% url 'my_interviews' %}">
+                    <span class="menu-icon">▣</span>
+                    <span class="menu-label">Interviews</span>
+                </a>
+
+            {% endif %}
+
+            <a href="{% url 'reports' %}">
+                <span class="menu-icon">▥</span>
+                <span class="menu-label">Reports</span>
+            </a>
+
+            <a href="{% url 'inbox' %}">
+                <span class="menu-icon">✉</span>
+                <span class="menu-label">Inbox</span>
+            </a>
+
+            <a href="{% url 'my_profile' %}">
+                <span class="menu-icon">⚙</span>
+                <span class="menu-label">My Profile</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <h2>Find Available Jobs</h2>
+
+            <div class="user-info">
+                👤 {{ request.user.username }}
+
+                <a class="logout" href="{% url 'logout' %}">
+                    Logout
+                </a>
+            </div>
+
+        </div>
+
+        <section class="hero">
+
+            <h1>Find Your <span>Dream Job</span></h1>
+
+            <p>
+                Discover opportunities and take the next step in your career.
+            </p>
+
+        </section>
+
+        <div class="container">
+
+            <div class="search-box">
+
+                <h3>🔍 Search for Jobs</h3>
+
+                <form method="GET" class="search-form">
+
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Job title..."
+                        value="{{ request.GET.search }}"
+                    >
+
+                    <input
+                        type="text"
+                        name="location"
+                        placeholder="Location..."
+                        value="{{ request.GET.location }}"
+                    >
+
+                    <input
+                        type="text"
+                        name="category"
+                        placeholder="Category..."
+                        value="{{ request.GET.category }}"
+                    >
+
+                    <button type="submit" class="search-btn">
+                        Search
+                    </button>
+
+                    <a href="{% url 'job_list' %}" class="btn clear-btn">
+                        Clear
+                    </a>
+
+                </form>
+
+            </div>
+
+            <div class="section-title">
+                <h2>Latest Available Jobs</h2>
+            </div>
+
+            {% for job in jobs %}
+
+                <div class="job-card">
+
+                    <h2>{{ job.title }}</h2>
+
+                    <div class="job-info">
+
+                        <span>📁 {{ job.category.name }}</span>
+
+                        <span>📍 {{ job.location }}</span>
+
+                        <span>
+                            💰 {{ job.salary|default:"Not specified" }}
+                        </span>
+
+                    </div>
+
+                    <p>
+                        {{ job.description|truncatechars:180 }}
+                    </p>
+
+                    <a
+                        href="{% url 'job_detail' job.id %}"
+                        class="btn details-btn"
+                    >
+                        View Details
+                    </a>
+
+                    {% if user.role == 'JOB_SEEKER' %}
+
+                        <a
+                            href="{% url 'apply_job' job.id %}"
+                            class="btn apply-btn"
+                        >
+                            Apply Now
+                        </a>
+
+                    {% endif %}
+
+                    {% if user.role == 'EMPLOYER' and job.employer_id == user.id %}
+
+                        <a
+                            href="{% url 'edit_job' job.id %}"
+                            class="btn edit-btn"
+                        >
+                            Edit Job
+                        </a>
+
+                        <a
+                            href="{% url 'delete_job' job.id %}"
+                            class="btn delete-btn"
+                        >
+                            Delete Job
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            {% empty %}
+
+                <div class="empty">
+
+                    <h3>No Jobs Found</h3>
+
+                    <p>
+                        Try changing your search or filters.
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <footer>
+            Online Job Portal © 2026. All Rights Reserved.
+        </footer>
+
+    </main>
+
+</body>
+</html>

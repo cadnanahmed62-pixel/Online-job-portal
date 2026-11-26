@@ -1,0 +1,210 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Online Job Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0b1425;
+            color: #e2e8f0;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #07172f;
+            padding: 30px 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            color: #60a5fa;
+            font-size: 22px;
+            margin-bottom: 35px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 13px 15px;
+            margin-bottom: 8px;
+            border-radius: 7px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #1e40af;
+            color: white;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 40px;
+        }
+
+        .header {
+            background: linear-gradient(120deg, #111f35, #1e3a8a);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid #263c5c;
+        }
+
+        .header h1 {
+            margin: 0 0 12px;
+            color: #f8fafc;
+        }
+
+        .header p {
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #111f35;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #263c5c;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #3b82f6;
+        }
+
+        .card h3 {
+            color: #94a3b8;
+            font-size: 15px;
+            font-weight: normal;
+            margin-top: 0;
+        }
+
+        .number {
+            font-size: 34px;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 30px;
+            background: #2563eb;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 7px;
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>Job Portal</h2>
+
+    <a href="{% url 'home' %}">⌂ Overview</a>
+    <a href="{% url 'job_list' %}">💼 Find Jobs</a>
+
+    {% if request.user.role == 'EMPLOYER' %}
+        <a href="{% url 'post_job' %}">＋ Post Job</a>
+        <a href="{% url 'employer_applications' %}">📄 Applications</a>
+    {% else %}
+        <a href="{% url 'my_applications' %}">📄 My Applications</a>
+        <a href="{% url 'my_interviews' %}">📅 My Interviews</a>
+    {% endif %}
+
+    <a href="{% url 'reports' %}" class="active">📊 Reports</a>
+    <a href="{% url 'inbox' %}">✉ Messages</a>
+    <a href="{% url 'my_profile' %}">👤 My Profile</a>
+    <a href="{% url 'logout' %}">↪ Logout</a>
+</div>
+
+<div class="main">
+
+    <div class="header">
+        <h1>📊 Reports & Statistics</h1>
+        <p>View your job portal activity and application statistics.</p>
+    </div>
+
+    <div class="cards">
+
+        {% if request.user.role == 'EMPLOYER' %}
+        <div class="card">
+            <h3>Total Jobs Posted</h3>
+            <div class="number">{{ total_jobs }}</div>
+        </div>
+
+        <div class="card">
+            <h3>Active Jobs</h3>
+            <div class="number">{{ active_jobs }}</div>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <h3>Total Applications</h3>
+            <div class="number">{{ total_applications }}</div>
+        </div>
+
+        <div class="card">
+            <h3>Pending Applications</h3>
+            <div class="number">{{ pending_applications }}</div>
+        </div>
+
+        <div class="card">
+            <h3>Accepted Applications</h3>
+            <div class="number">{{ accepted_applications }}</div>
+        </div>
+
+        <div class="card">
+            <h3>Rejected Applications</h3>
+            <div class="number">{{ rejected_applications }}</div>
+        </div>
+
+    </div>
+
+    <a href="{% url 'home' %}" class="back">← Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>
+```

@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Message | Online Job Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #0b1425;
+            color: #e2e8f0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #07172f;
+            padding: 28px 15px;
+            overflow-y: auto;
+            z-index: 1000;
+            border-right: 1px solid #1e293b;
+        }
+
+        .logo {
+            color: white;
+            font-size: 23px;
+            font-weight: bold;
+            padding: 10px 12px 40px;
+        }
+
+        .menu-title {
+            color: #94a3b8;
+            font-size: 11px;
+            padding: 0 15px;
+            margin-bottom: 15px;
+            letter-spacing: 1.5px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            margin: 6px 0;
+            border-radius: 9px;
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #12336b;
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .menu-icon {
+            font-size: 19px;
+            width: 22px;
+            text-align: center;
+        }
+
+        /* MAIN CONTENT */
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .topbar {
+            background: #111f35;
+            padding: 18px 25px;
+            border: 1px solid #26364e;
+            border-radius: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .topbar h2 {
+            color: #f1f5f9;
+            font-size: 20px;
+        }
+
+        .user-info {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .logout {
+            background: #dc2626;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 7px;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        .logout:hover {
+            background: #991b1b;
+        }
+
+        /* FORM */
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .page-heading h1 {
+            color: #60a5fa;
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: #111f35;
+            padding: 30px;
+            border: 1px solid #26364e;
+            border-radius: 12px;
+        }
+
+        .container h2 {
+            color: #f1f5f9;
+            margin-bottom: 25px;
+            font-size: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #334155;
+            border-radius: 7px;
+            background: #0b1425;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+        }
+
+        select option {
+            background: #111f35;
+            color: white;
+        }
+
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 13px 22px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .back {
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: #bfdbfe;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 35px;
+            border-top: 1px solid #26364e;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 75px;
+                padding: 20px 7px;
+            }
+
+            .logo {
+                font-size: 10px;
+                padding: 10px 2px 25px;
+                text-align: center;
+            }
+
+            .menu-title,
+            .menu-label {
+                display: none;
+            }
+
+            .menu a {
+                justify-content: center;
+                padding: 15px 5px;
+            }
+
+            .main {
+                margin-left: 75px;
+                padding: 15px;
+            }
+
+            .topbar {
+                padding: 15px;
+                flex-wrap: wrap;
+            }
+
+            .topbar h2 {
+                font-size: 16px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .form-actions {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">💼 Job Portal</div>
+
+        <div class="menu-title">MAIN MENU</div>
+
+        <nav class="menu">
+
+            <a href="{% url 'home' %}">
+                <span class="menu-icon">⌂</span>
+                <span class="menu-label">Overview</span>
+            </a>
+
+            <a href="{% url 'job_list' %}">
+                <span class="menu-icon">▣</span>
+                <span class="menu-label">Jobs</span>
+            </a>
+
+            {% if request.user.role == 'EMPLOYER' %}
+
+                <a href="{% url 'employer_applications' %}">
+                    <span class="menu-icon">♧</span>
+                    <span class="menu-label">Applicants</span>
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'my_applications' %}">
+                    <span class="menu-icon">♧</span>
+                    <span class="menu-label">My Applications</span>
+                </a>
+
+                <a href="{% url 'my_interviews' %}">
+                    <span class="menu-icon">▣</span>
+                    <span class="menu-label">Interviews</span>
+                </a>
+
+            {% endif %}
+
+            <a href="{% url 'reports' %}">
+                <span class="menu-icon">▥</span>
+                <span class="menu-label">Reports</span>
+            </a>
+
+            <a href="{% url 'inbox' %}" class="active">
+                <span class="menu-icon">✉</span>
+                <span class="menu-label">Inbox</span>
+            </a>
+
+            <a href="{% url 'my_profile' %}">
+                <span class="menu-icon">⚙</span>
+                <span class="menu-label">My Profile</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <h2>Send Message</h2>
+
+            <div class="user-info">
+                👤 {{ request.user.username }}
+
+                <a class="logout" href="{% url 'logout' %}">
+                    Logout
+                </a>
+            </div>
+
+        </div>
+
+        <div class="page-heading">
+
+            <h1>Send a Message</h1>
+
+            <p>
+                Communicate with employers and job seekers.
+            </p>
+
+        </div>
+
+        <div class="container">
+
+            <h2>New Message</h2>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <label>To</label>
+
+                <select name="receiver" required>
+                    <option value="">Select User</option>
+
+                    {% for user in users %}
+                        <option value="{{ user.id }}">
+                            {{ user.username }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+
+                <label>Subject</label>
+
+                <input
+                    type="text"
+                    name="subject"
+                    placeholder="Enter subject"
+                    required
+                >
+
+                <label>Message</label>
+
+                <textarea
+                    name="body"
+                    placeholder="Write your message..."
+                    required
+                ></textarea>
+
+                <div class="form-actions">
+
+                    <button type="submit">
+                        ✉ Send Message
+                    </button>
+
+                    <a class="back" href="{% url 'inbox' %}">
+                        ← Back to Inbox
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <footer>
+            Online Job Portal © 2026. All Rights Reserved.
+        </footer>
+
+    </main>
+
+</body>
+</html>

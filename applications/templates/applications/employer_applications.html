@@ -1,0 +1,584 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Applications | Online Job Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #0b1425;
+            color: #e2e8f0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #07172f;
+            padding: 28px 15px;
+            overflow-y: auto;
+            z-index: 1000;
+            border-right: 1px solid #1e293b;
+        }
+
+        .logo {
+            color: white;
+            font-size: 23px;
+            font-weight: bold;
+            padding: 10px 12px 40px;
+        }
+
+        .menu-title {
+            color: #94a3b8;
+            font-size: 11px;
+            padding: 0 15px;
+            margin-bottom: 15px;
+            letter-spacing: 1.5px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            margin: 6px 0;
+            border-radius: 9px;
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #12336b;
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .menu-icon {
+            font-size: 19px;
+            width: 22px;
+            text-align: center;
+        }
+
+        /* MAIN CONTENT */
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .topbar {
+            background: #111f35;
+            padding: 18px 25px;
+            border: 1px solid #26364e;
+            border-radius: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .topbar h2 {
+            color: #f1f5f9;
+            font-size: 20px;
+        }
+
+        .user-info {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .logout {
+            background: #dc2626;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 7px;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        .logout:hover {
+            background: #991b1b;
+        }
+
+        /* PAGE HEADING */
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .page-heading h1 {
+            color: #60a5fa;
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* APPLICATION CARD */
+
+        .application {
+            background: #111f35;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border: 1px solid #26364e;
+            transition: 0.3s;
+        }
+
+        .application:hover {
+            border-color: #2563eb;
+        }
+
+        .application h2,
+        .application h3 {
+            color: #60a5fa;
+        }
+
+        .application h2 {
+            font-size: 21px;
+            margin-bottom: 20px;
+        }
+
+        .application h3 {
+            font-size: 18px;
+            margin-bottom: 18px;
+        }
+
+        .application p {
+            line-height: 1.7;
+            color: #cbd5e1;
+            overflow-wrap: anywhere;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .application strong {
+            color: #94a3b8;
+        }
+
+        .status {
+            display: inline-block;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            background: #854d0e;
+            color: #fef08a;
+        }
+
+        /* BUTTONS */
+
+        .buttons {
+            margin-top: 22px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 7px;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+            margin: 4px;
+        }
+
+        .accept {
+            background: #15803d;
+        }
+
+        .accept:hover {
+            background: #166534;
+        }
+
+        .reject {
+            background: #dc2626;
+        }
+
+        .reject:hover {
+            background: #991b1b;
+        }
+
+        .schedule {
+            background: #2563eb;
+        }
+
+        .schedule:hover {
+            background: #1d4ed8;
+        }
+
+        .cv-link {
+            background: #0369a1;
+        }
+
+        .cv-link:hover {
+            background: #075985;
+        }
+
+        /* JOB SEEKER PROFILE */
+
+        .profile {
+            background: #0b1425;
+            padding: 22px;
+            border-radius: 10px;
+            margin-top: 22px;
+            border: 1px solid #26364e;
+        }
+
+        .profile p {
+            margin: 12px 0;
+        }
+
+        .empty {
+            background: #111f35;
+            border: 1px solid #26364e;
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 18px;
+            background: #12336b;
+            color: #bfdbfe;
+            text-decoration: none;
+            border-radius: 7px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 35px;
+            border-top: 1px solid #26364e;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 75px;
+                padding: 20px 7px;
+            }
+
+            .logo {
+                font-size: 10px;
+                padding: 10px 2px 25px;
+                text-align: center;
+            }
+
+            .menu-title,
+            .menu-label {
+                display: none;
+            }
+
+            .menu a {
+                justify-content: center;
+                padding: 15px 5px;
+            }
+
+            .main {
+                margin-left: 75px;
+                padding: 15px;
+            }
+
+            .topbar {
+                padding: 15px;
+                flex-wrap: wrap;
+            }
+
+            .topbar h2 {
+                font-size: 16px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .application {
+                padding: 18px;
+            }
+
+            .profile {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">💼 Job Portal</div>
+
+        <div class="menu-title">MAIN MENU</div>
+
+        <nav class="menu">
+
+            <a href="{% url 'home' %}">
+                <span class="menu-icon">⌂</span>
+                <span class="menu-label">Overview</span>
+            </a>
+
+            <a href="{% url 'job_list' %}">
+                <span class="menu-icon">▣</span>
+                <span class="menu-label">Jobs</span>
+            </a>
+
+            <a href="{% url 'employer_applications' %}" class="active">
+                <span class="menu-icon">♧</span>
+                <span class="menu-label">Applicants</span>
+            </a>
+
+            <a href="{% url 'reports' %}">
+                <span class="menu-icon">▥</span>
+                <span class="menu-label">Reports</span>
+            </a>
+
+            <a href="{% url 'inbox' %}">
+                <span class="menu-icon">✉</span>
+                <span class="menu-label">Inbox</span>
+            </a>
+
+            <a href="{% url 'my_profile' %}">
+                <span class="menu-icon">⚙</span>
+                <span class="menu-label">My Profile</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <h2>Employer Applications</h2>
+
+            <div class="user-info">
+                👤 {{ request.user.username }}
+
+                <a class="logout" href="{% url 'logout' %}">
+                    Logout
+                </a>
+            </div>
+
+        </div>
+
+        <div class="page-heading">
+
+            <h1>Job Applications Received</h1>
+
+            <p>
+                Review applicants, manage applications and schedule interviews.
+            </p>
+
+        </div>
+
+        {% for application in applications %}
+
+            <div class="application">
+
+                <h2>{{ application.job.title }}</h2>
+
+                <p>
+                    <strong>Applicant:</strong>
+                    {{ application.applicant.username }}
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    {{ application.applicant.email }}
+                </p>
+
+                <p><strong>Cover Letter:</strong></p>
+
+                <p>{{ application.cover_letter }}</p>
+
+                <p>
+                    <strong>Status:</strong>
+
+                    <span class="status">
+                        {{ application.get_status_display }}
+                    </span>
+                </p>
+
+                <div class="buttons">
+
+                    <form method="POST"
+                          action="{% url 'update_application_status' application.id %}">
+
+                        {% csrf_token %}
+
+                        <button type="submit"
+                                name="status"
+                                value="ACCEPTED"
+                                class="btn accept">
+                            Accept
+                        </button>
+
+                        <button type="submit"
+                                name="status"
+                                value="REJECTED"
+                                class="btn reject">
+                            Reject
+                        </button>
+
+                    </form>
+
+                    {% if application.status == 'ACCEPTED' %}
+
+                        <a class="btn schedule"
+                           href="{% url 'schedule_interview' application.id %}">
+                            Schedule Interview
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+                {% if application.cv %}
+
+                    <p>
+                        <a class="btn cv-link"
+                           href="{{ application.cv.url }}"
+                           target="_blank">
+                            View Application CV
+                        </a>
+                    </p>
+
+                {% endif %}
+
+                <div class="profile">
+
+                    <h3>Job Seeker Profile</h3>
+
+                    {% if application.seeker_profile %}
+
+                        <p>
+                            <strong>Phone:</strong>
+                            {{ application.seeker_profile.phone_number|default:"Not provided" }}
+                        </p>
+
+                        <p>
+                            <strong>Address:</strong>
+                            {{ application.seeker_profile.address|default:"Not provided" }}
+                        </p>
+
+                        <p><strong>Skills:</strong></p>
+
+                        <p>
+                            {{ application.seeker_profile.skills|default:"Not provided"|linebreaksbr }}
+                        </p>
+
+                        <p><strong>Education:</strong></p>
+
+                        <p>
+                            {{ application.seeker_profile.education|default:"Not provided"|linebreaksbr }}
+                        </p>
+
+                        <p><strong>Experience:</strong></p>
+
+                        <p>
+                            {{ application.seeker_profile.experience|default:"Not provided"|linebreaksbr }}
+                        </p>
+
+                        {% if application.seeker_profile.cv %}
+
+                            <a class="btn cv-link"
+                               href="{{ application.seeker_profile.cv.url }}"
+                               target="_blank">
+                                View Profile CV
+                            </a>
+
+                            <a class="btn cv-link"
+                               href="{{ application.seeker_profile.cv.url }}"
+                               download>
+                                Download Profile CV
+                            </a>
+
+                        {% else %}
+
+                            <p>No Profile CV uploaded.</p>
+
+                        {% endif %}
+
+                    {% else %}
+
+                        <p>
+                            Job Seeker has not completed their profile yet.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <div class="empty">
+                <h3>No Applications Received</h3>
+                <p>You have not received any job applications yet.</p>
+            </div>
+
+        {% endfor %}
+
+        <a class="back" href="{% url 'home' %}">
+            ← Back to Dashboard
+        </a>
+
+        <footer>
+            Online Job Portal © 2026. All Rights Reserved.
+        </footer>
+
+    </main>
+
+</body>
+</html>

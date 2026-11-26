@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Job Seeker Profile | Online Job Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #0b1425;
+            color: #e2e8f0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #07172f;
+            padding: 28px 15px;
+            overflow-y: auto;
+            z-index: 1000;
+            border-right: 1px solid #1e293b;
+        }
+
+        .logo {
+            color: white;
+            font-size: 23px;
+            font-weight: bold;
+            padding: 10px 12px 40px;
+        }
+
+        .menu-title {
+            color: #94a3b8;
+            font-size: 11px;
+            padding: 0 15px;
+            margin-bottom: 15px;
+            letter-spacing: 1.5px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            margin: 6px 0;
+            border-radius: 9px;
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #12336b;
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .menu-icon {
+            font-size: 19px;
+            width: 22px;
+            text-align: center;
+        }
+
+        /* MAIN CONTENT */
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .topbar {
+            background: #111f35;
+            padding: 18px 25px;
+            border: 1px solid #26364e;
+            border-radius: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .topbar h2 {
+            color: #f1f5f9;
+            font-size: 20px;
+        }
+
+        .user-info {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .logout {
+            background: #dc2626;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 7px;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        .logout:hover {
+            background: #991b1b;
+        }
+
+        /* PROFILE */
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .page-heading h1 {
+            color: #60a5fa;
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: #111f35;
+            padding: 30px;
+            border: 1px solid #26364e;
+            border-radius: 12px;
+        }
+
+        .container h2 {
+            color: #60a5fa;
+            margin-bottom: 10px;
+            font-size: 21px;
+        }
+
+        .description {
+            color: #94a3b8;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* FORM FIELDS */
+
+        form p {
+            color: #cbd5e1;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        form label {
+            display: block;
+            color: #cbd5e1;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 18px;
+            border: 1px solid #334155;
+            border-radius: 7px;
+            background: #0b1425;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+        }
+
+        input[type="file"] {
+            padding: 10px;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: #1e3a8a;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        select option {
+            background: #111f35;
+            color: white;
+        }
+
+        .helptext {
+            display: block;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .errorlist {
+            color: #f87171;
+            font-size: 13px;
+            margin: 5px 0 10px 18px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 13px 22px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        /* CURRENT CV */
+
+        .cv-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #0b1425;
+            border: 1px solid #26364e;
+            border-radius: 9px;
+        }
+
+        .cv-box p {
+            color: #cbd5e1;
+            margin-bottom: 12px;
+        }
+
+        .cv-link {
+            display: inline-block;
+            background: #12336b;
+            color: #bfdbfe;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .cv-link:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: #bfdbfe;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 35px;
+            border-top: 1px solid #26364e;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 75px;
+                padding: 20px 7px;
+            }
+
+            .logo {
+                font-size: 10px;
+                padding: 10px 2px 25px;
+                text-align: center;
+            }
+
+            .menu-title,
+            .menu-label {
+                display: none;
+            }
+
+            .menu a {
+                justify-content: center;
+                padding: 15px 5px;
+            }
+
+            .main {
+                margin-left: 75px;
+                padding: 15px;
+            }
+
+            .topbar {
+                padding: 15px;
+                flex-wrap: wrap;
+            }
+
+            .topbar h2 {
+                font-size: 16px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">💼 Job Portal</div>
+
+        <div class="menu-title">MAIN MENU</div>
+
+        <nav class="menu">
+
+            <a href="{% url 'home' %}">
+                <span class="menu-icon">⌂</span>
+                <span class="menu-label">Overview</span>
+            </a>
+
+            <a href="{% url 'job_list' %}">
+                <span class="menu-icon">▣</span>
+                <span class="menu-label">Jobs</span>
+            </a>
+
+            {% if request.user.role == 'EMPLOYER' %}
+
+                <a href="{% url 'employer_applications' %}">
+                    <span class="menu-icon">♧</span>
+                    <span class="menu-label">Applicants</span>
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'my_applications' %}">
+                    <span class="menu-icon">♧</span>
+                    <span class="menu-label">My Applications</span>
+                </a>
+
+                <a href="{% url 'my_interviews' %}">
+                    <span class="menu-icon">▣</span>
+                    <span class="menu-label">Interviews</span>
+                </a>
+
+            {% endif %}
+
+            <a href="{% url 'reports' %}">
+                <span class="menu-icon">▥</span>
+                <span class="menu-label">Reports</span>
+            </a>
+
+            <a href="{% url 'inbox' %}">
+                <span class="menu-icon">✉</span>
+                <span class="menu-label">Inbox</span>
+            </a>
+
+            <a href="{% url 'my_profile' %}" class="active">
+                <span class="menu-icon">⚙</span>
+                <span class="menu-label">My Profile</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <h2>My Profile</h2>
+
+            <div class="user-info">
+                👤 {{ request.user.username }}
+
+                <a class="logout" href="{% url 'logout' %}">
+                    Logout
+                </a>
+            </div>
+
+        </div>
+
+        <div class="page-heading">
+
+            <h1>My Job Seeker Profile</h1>
+
+            <p>
+                Manage your personal information and upload your CV.
+            </p>
+
+        </div>
+
+        <div class="container">
+
+            <h2>Profile Information</h2>
+
+            <p class="description">
+                Complete your profile and upload your CV to improve your job applications.
+            </p>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <button type="submit">
+                    Save Profile
+                </button>
+
+            </form>
+
+            {% if profile.cv %}
+
+                <div class="cv-box">
+
+                    <p><strong>Current CV:</strong></p>
+
+                    <a class="cv-link"
+                       href="{{ profile.cv.url }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        📄 View CV
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+            <a class="back" href="{% url 'home' %}">
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+        <footer>
+            Online Job Portal © 2026. All Rights Reserved.
+        </footer>
+
+    </main>
+
+</body>
+</html>

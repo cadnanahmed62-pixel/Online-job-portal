@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Job</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #38bdf8;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            background: #0f172a;
+            color: white;
+        }
+
+        textarea {
+            min-height: 150px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 22px;
+            background: #0284c7;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0369a1;
+        }
+
+        .dashboard-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 16px;
+            background: #475569;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .dashboard-btn:hover {
+            background: #334155;
+        }
+
+        .back-jobs {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a class="dashboard-btn" href="{% url 'home' %}">
+        ← Back to Dashboard
+    </a>
+
+    <h1>Apply for {{ job.title }}</h1>
+
+    <p>Location: {{ job.location }}</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Cover Letter</label>
+        <textarea name="cover_letter" required></textarea>
+
+        <label>Upload CV</label>
+        <input type="file" name="cv" accept=".pdf,.doc,.docx">
+
+        <button type="submit">Submit Application</button>
+    </form>
+
+    <p>
+        <a class="back-jobs" href="{% url 'job_list' %}">
+            Back to Jobs
+        </a>
+    </p>
+
+</div>
+
+</body>
+</html>

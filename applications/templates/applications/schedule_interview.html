@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Interview | Online Job Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #0b1425;
+            color: #e2e8f0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #07172f;
+            padding: 28px 15px;
+            overflow-y: auto;
+            z-index: 1000;
+            border-right: 1px solid #1e293b;
+        }
+
+        .logo {
+            color: white;
+            font-size: 23px;
+            font-weight: bold;
+            padding: 10px 12px 40px;
+        }
+
+        .menu-title {
+            color: #94a3b8;
+            font-size: 11px;
+            padding: 0 15px;
+            margin-bottom: 15px;
+            letter-spacing: 1.5px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            margin: 6px 0;
+            border-radius: 9px;
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #12336b;
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .menu-icon {
+            font-size: 19px;
+            width: 22px;
+            text-align: center;
+        }
+
+        /* MAIN CONTENT */
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .topbar {
+            background: #111f35;
+            padding: 18px 25px;
+            border: 1px solid #26364e;
+            border-radius: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .topbar h2 {
+            color: #f1f5f9;
+            font-size: 20px;
+        }
+
+        .user-info {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .logout {
+            background: #dc2626;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 7px;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        .logout:hover {
+            background: #991b1b;
+        }
+
+        /* PAGE HEADING */
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .page-heading h1 {
+            color: #60a5fa;
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* FORM */
+
+        .container {
+            max-width: 750px;
+            background: #111f35;
+            border: 1px solid #26364e;
+            padding: 30px;
+            border-radius: 13px;
+            margin: 20px auto;
+        }
+
+        .applicant-info {
+            background: #0b1425;
+            border: 1px solid #26364e;
+            border-radius: 9px;
+            padding: 18px;
+            margin-bottom: 25px;
+        }
+
+        .applicant-info p {
+            color: #cbd5e1;
+            margin: 9px 0;
+            font-size: 14px;
+        }
+
+        .applicant-info strong {
+            color: #94a3b8;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 9px;
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #475569;
+            border-radius: 7px;
+            background: #0b1425;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+        }
+
+        input[type="datetime-local"] {
+            color-scheme: dark;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #64748b;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .messages {
+            background: #422006;
+            border: 1px solid #854d0e;
+            color: #fef08a;
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 22px;
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: #93c5fd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 35px;
+            border-top: 1px solid #26364e;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 75px;
+                padding: 20px 7px;
+            }
+
+            .logo {
+                font-size: 10px;
+                padding: 10px 2px 25px;
+                text-align: center;
+            }
+
+            .menu-title,
+            .menu-label {
+                display: none;
+            }
+
+            .menu a {
+                justify-content: center;
+                padding: 15px 5px;
+            }
+
+            .main {
+                margin-left: 75px;
+                padding: 15px;
+            }
+
+            .topbar {
+                padding: 15px;
+                flex-wrap: wrap;
+            }
+
+            .topbar h2 {
+                font-size: 16px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">💼 Job Portal</div>
+
+        <div class="menu-title">MAIN MENU</div>
+
+        <nav class="menu">
+
+            <a href="{% url 'home' %}">
+                <span class="menu-icon">⌂</span>
+                <span class="menu-label">Overview</span>
+            </a>
+
+            <a href="{% url 'job_list' %}">
+                <span class="menu-icon">▣</span>
+                <span class="menu-label">Jobs</span>
+            </a>
+
+            {% if request.user.role == 'EMPLOYER' %}
+
+                <a href="{% url 'employer_applications' %}" class="active">
+                    <span class="menu-icon">♧</span>
+                    <span class="menu-label">Applicants</span>
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'my_applications' %}">
+                    <span class="menu-icon">♧</span>
+                    <span class="menu-label">My Applications</span>
+                </a>
+
+                <a href="{% url 'my_interviews' %}">
+                    <span class="menu-icon">▣</span>
+                    <span class="menu-label">Interviews</span>
+                </a>
+
+            {% endif %}
+
+            <a href="{% url 'reports' %}">
+                <span class="menu-icon">▥</span>
+                <span class="menu-label">Reports</span>
+            </a>
+
+            <a href="{% url 'inbox' %}">
+                <span class="menu-icon">✉</span>
+                <span class="menu-label">Inbox</span>
+            </a>
+
+            <a href="{% url 'my_profile' %}">
+                <span class="menu-icon">⚙</span>
+                <span class="menu-label">My Profile</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <h2>Schedule Interview</h2>
+
+            <div class="user-info">
+                👤 {{ request.user.username }}
+
+                <a class="logout" href="{% url 'logout' %}">
+                    Logout
+                </a>
+            </div>
+
+        </div>
+
+        <div class="page-heading">
+
+            <h1>Schedule Interview</h1>
+
+            <p>
+                Arrange an interview with your selected job applicant.
+            </p>
+
+        </div>
+
+        <div class="container">
+
+            <div class="applicant-info">
+
+                <p>
+                    <strong>Applicant:</strong>
+                    {{ application.applicant.username }}
+                </p>
+
+                <p>
+                    <strong>Job:</strong>
+                    {{ application.job.title }}
+                </p>
+
+            </div>
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <p class="messages">
+                        {{ message }}
+                    </p>
+
+                {% endfor %}
+
+            {% endif %}
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <label>Interview Date & Time</label>
+
+                <input type="datetime-local"
+                       name="interview_date"
+                       required>
+
+                <label>Meeting Link</label>
+
+                <input type="url"
+                       name="meeting_link"
+                       placeholder="https://meet.google.com/...">
+
+                <label>Additional Notes</label>
+
+                <textarea name="notes"
+                          placeholder="Enter interview instructions..."></textarea>
+
+                <button type="submit">
+                    Schedule Interview
+                </button>
+
+            </form>
+
+            <a class="back" href="{% url 'employer_applications' %}">
+                ← Back to Applicants
+            </a>
+
+        </div>
+
+        <footer>
+            Online Job Portal © 2026. All Rights Reserved.
+        </footer>
+
+    </main>
+
+</body>
+</html>
